@@ -5,16 +5,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <h6 class="mb-0 text-white lh-100">
-                        <i class="fa fa-tags"></i> Daftar Produk
+                        <i class="fa fa-users"></i> Daftar Supplier
                     </h6>
                 </div>
                 <div class="col-md-6">
                     <div class="float-right">
-                        <a href="{{baseUrl}}/kategori" class="btn btn-light btn-sm">
-                            <i class="fa fa-folder-o"></i> Kategori Produk
-                        </a>
-                        <a href="{{baseUrl}}/produk/add" class="btn btn-light btn-sm">
-                            <i class="fa fa-plus"></i> Tambah Produk
+                        <a href="{{baseUrl}}/supplier/add" class="btn btn-light btn-sm">
+                            <i class="fa fa-plus"></i> Tambah Supplier
                         </a>
                     </div>
                 </div>
@@ -30,34 +27,14 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th scope="col" width="80"></th>
                                 <th scope="col">Nama</th>
-                                <th scope="col">Kategori</th>
-                                <th scope="col" width="150">Harga Beli</th>
-                                <th scope="col" width="150">Harga Jual</th>
+                                <th scope="col">No Telepon</th>
+                                <th scope="col">Alamat</th>
                                 <th scope="col" width="100"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <img src="https://images.tokopedia.net/img/cache/900/VqbcmM/2021/8/27/923568c7-39ef-4768-8b2b-43ea80a11cdd.jpg"
-                                        class="thumb-produk" />
-                                </td>
-                                <td>
-                                    Lenovo <br />
-                                    <small>PRD0001</small>
-                                </td>
-                                <td>Laptop</td>
-                                <td class="text-right">Rp 2.500.000</td>
-                                <td class="text-right">Rp 3.500.000</td>
-                                <td class="text-center">
-                                    <a href="{{baseUrl}}/produk/edit/" data-toggle="tooltip" data-placement="left"
-                                        title="Ubah data produk"><i class="fa fa-pencil mr-2"></i></a>
-                                    <a href="{{baseUrl}}/produk/delete/" data-toggle="tooltip" data-placement="left"
-                                        title="Hapus data produk"><i class="fa fa-trash text-danger"></i></a>
-                                </td>
-                            </tr>
+                          
                         </tbody>
                     </table>
                 </div>
@@ -79,7 +56,7 @@
             "pageLength": 10,
             "ajax": {
                 "type": "GET",
-                "url": "{{baseUrl}}/api/produk/get",
+                "url": "{{baseUrl}}/api/supplier/get",
                 "dataType": "json",
                 "contentType": 'application/json; charset=utf-8',
                 "data": function (data) {
@@ -89,10 +66,8 @@
             },
             "columns": [
                 { "data": "nama" },
-                { "data": "nama" },
-                { "data": "kategori" },
-                { "data": "harga_beli" },
-                { "data": "harga_jual" },
+                { "data": "no_telepon" },
+                { "data": "alamat" },
                 {
                     "data": null, "title": "Action",
                     "defaultContent": "<center><a href='javascript: void(0)' class='btn-edit mr-2' data-toggle='tooltip' data-placement='left' title='Ubah'><i class='fa fa-edit'></i></a><a href='javascript: void(0)' class='btn-delete mr-2 text-danger' data-toggle='tooltip' data-placement='left' title='Hapus'><i class='fa fa-trash-o'></i></a></center>"
@@ -107,7 +82,7 @@
         $('#table tbody').on('click', '.btn-edit', function () {
             var row = $(this).closest('tr');
             var data = table.row(row).data().id;
-            window.location.replace('{{baseUrl}}/produk/edit/' + data);
+            window.location.replace('{{baseUrl}}/supplier/edit/' + data);
         });
 
         $('#table tbody').on('click', '.btn-delete', function () {
@@ -115,7 +90,7 @@
             var data = table.row(row).data().id;
             Swal.fire({
                 title: 'Peringatan !',
-                text: "Apakah kamu yakin ingin menghapus data produk ini ?",
+                text: "Apakah kamu yakin ingin menghapus data supplier ini ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -124,7 +99,7 @@
                 confirmButtonText: 'Ya, Hapus data ini!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.post('{{baseUrl}}/api/produk/drop', {id: data}, function (result) {
+                    $.post('{{baseUrl}}/api/supplier/drop', {id: data}, function (result) {
                         Swal.fire(
                             'Berhasil!',
                             result.messages,

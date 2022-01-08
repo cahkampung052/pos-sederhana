@@ -1,0 +1,110 @@
+{% extends "Layout/Admin.html" %} {% block content %}
+<div class="row my-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="pb-2 mb-0 tittle-form">
+                    <i class="{{icon}}"></i> {{tittle}}
+                </h6>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="nama" class="control-label required">Nama Customer</label>
+                            <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Customer" />
+                            <input type="hidden" class="form-control" id="id" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="no_hp" class="control-label required">Nomor HP</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-harga-jual">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                </div>
+                                <input type="number" class="form-control" id="no_hp" placeholder="Nomor HP Customer yang bisa dihubungi" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="alamat" class="control-label required">Alamat</label>
+                            <textarea rows="2" class="form-control" id="alamat" placeholder="Masukkan Alamat"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    <div class="float-right">
+                        <a href="{{baseUrl}}/customer" class="btn btn-info btn-sm">
+                            <i class="fa fa-arrow-left"></i>
+                            Daftar Customer
+                        </a>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="save()">
+                            <i class="fa fa-save"></i>
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function save() {
+        const nama = $("#nama").val();
+        const no_hp = $("#no_hp").val();
+        const alamat = $("#alamat").val();
+        const id = $("#id").val();
+
+        $.post('{{baseUrl}}/api/customer', { 
+            nama: nama, 
+            id: id,
+            no_hp: no_hp,
+            alamat: alamat 
+        }, function (result) {
+            Swal.fire(
+                'Berhasil',
+                result.messages,
+                'success'
+            );
+
+            if ($("#id").val() > 0) {
+                // do nothing
+            } else {
+                $("#nama").val('');
+                $("#no_hp").val('');
+                $("#alamat").val('');
+            }
+        }).fail(function (resp) {
+            Swal.fire(
+                'Ooops Mohon Maaf',
+                resp.responseJSON.error[0],
+                'error'
+            );
+        });
+    }
+
+    function getData(customerId) {
+        $.get('{{baseUrl}}/api/customer/' + customerId, function (result) {
+            $("#nama").val(result.data.nama);
+            $("#no_hp").val(result.data.no_hp);
+            $("#alamat").val(result.data.alamat);
+            $("#id").val(result.data.id);
+        }).fail(function (resp) {
+            Swal.fire(
+                'Ooops Mohon Maaf',
+                resp.responseJSON.error[0],
+                'error'
+            );
+        });
+    }
+</script>
+
+{% if customerId > 0 %}
+<script>
+    getData('{{customerId}}');
+</script>
+{% endif %}
+{% endblock %}

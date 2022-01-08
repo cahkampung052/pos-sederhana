@@ -18,12 +18,4 @@ class ProdukModel extends Model
         'harga_beli',
         'harga_jual'
     ];
-
-    protected $validationRules = [
-        'nama' => 'required|alpha_numeric_space|min_length[3]|max_length[50]',
-        'm_produk_kategori_id' => 'required',
-        'deskripsi' => 'required',
-        'harga_beli' => 'required',
-        'harga_jual' => 'required',
-    ];
 }
