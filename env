@@ -20,7 +20,7 @@ CI_ENVIRONMENT = development
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+app.baseURL = 'http://localhost:8081'
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
@@ -42,7 +42,7 @@ database.default.database = pos_mini
 database.default.username = root
 database.default.password = bismillah
 database.default.DBDriver = MySQLi
-# database.default.DBPrefix =
+database.default.DBPrefix =
 
 # database.tests.hostname = localhost
 # database.tests.database = ci4
@@ -124,7 +124,7 @@ database.default.DBDriver = MySQLi
 # LOGGER
 #--------------------------------------------------------------------
 
-# logger.threshold = 4
+logger.threshold = 4
 
 #--------------------------------------------------------------------
 # CURLRequest

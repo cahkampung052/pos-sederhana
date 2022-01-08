@@ -1,0 +1,65 @@
+.body-login {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to left, #61bfb7, #7ec997);
+}
+#container-logo {
+    text-align: center;
+}
+#logo-login{
+    max-width: 200px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+#login-form {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 400px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding-top: 25px;
+  padding-bottom: 50px;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login
+  .container
+  #login-row
+  #login-column
+  #login-box
+  #login-form
+  #register-link {
+  margin-top: -85px;
+}
+
+.btn-login{
+    margin-top: 40px;
+}
+
+/* CUSTOM BOOTSTRAP */
+.control-label {
+    color: #263238;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    line-height: 1em;
+    font-size: 16px;
+    color: #1d1d1d;
+    font-family: Quicksand,sans-serif;
+    border-radius: 10px;
+}
+
+.btn-primary {
+    background: #4289c7;
+}
+
+.btn {
+    border-radius: 10px;
+}
