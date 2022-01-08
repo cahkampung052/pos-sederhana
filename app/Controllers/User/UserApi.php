@@ -8,9 +8,6 @@ use CodeIgniter\RESTful\ResourceController;
 
 class UserApi extends ResourceController
 {
-    protected $helperName = 'App\Helper\UserHelper';
-    protected $format = 'json';
-
     public function login()
     {
         $params = $this->request->getPost();

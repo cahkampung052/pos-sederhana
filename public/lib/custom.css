@@ -1,3 +1,6 @@
+body {
+  font-size: 14px;
+}
 .body-login {
   margin: 0;
   padding: 0;
@@ -40,26 +43,134 @@
     margin-top: 40px;
 }
 
+.thumb-produk {
+  max-width: 60px;
+}
+
+small {
+  font-style: italic;
+}
+
+th {
+  text-align: center;
+}
+
+.mr-2 {
+  margin-right: 15px !important;
+}
+
+.lh-100 {
+  margin-top: 5px;
+}
+
+.tittle-form {
+  font-weight: 700;
+  padding-top: 10px;
+  padding-bottom: 15px !important;
+}
+
+.required:after {
+  content: " *";
+  color: red;
+}
+
+.editor-container .editor {
+  min-height: 200px;
+}
+
+.ck-editor__editable_inline {
+  min-height: 200px;
+}
+
+.img-produk {
+  max-width: 200px;
+  box-shadow: 0 0.25rem 0.5rem rgb(0 0 0 / 27%);
+}
+
+.img-produk-container {
+  margin-top: 40px;
+  margin-bottom: 55px;
+}
+
+.btn-edit {
+  font-size: 16px;
+}
+
+.btn-delete {
+  font-size: 16px;
+}
+
+#table thead{
+  background: #767CAB;
+}
+
+#table thead th {
+  color: #fff;
+}
+
+.select2-container--default .select2-selection--single{
+  height: 32px !important;
+}
+
 /* CUSTOM BOOTSTRAP */
 .control-label {
     color: #263238;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
     margin-bottom: 5px;
 }
 
 .form-control {
     line-height: 1em;
-    font-size: 16px;
+    font-size: 14px;
     color: #1d1d1d;
     font-family: Quicksand,sans-serif;
-    border-radius: 10px;
 }
 
 .btn-primary {
     background: #4289c7;
 }
 
-.btn {
-    border-radius: 10px;
+.navbar {
+  background: linear-gradient(to left, #61BFB9, #83CC96);
+}
+
+.nav-item a {
+  color: #fff;
+  font-weight: 700;
+}
+
+.nav-item a:hover {
+  color: #2269b3;
+}
+
+.dropdown-item {
+  color: #212529 !important;
+}
+
+.navbar-brand {
+  color: #fff;
+  font-weight: 700;
+}
+
+.navbar-collapse {
+  border-left: 1px solid #fff;
+  padding-left: 15px;
+}
+
+.dropdown-menu {
+  font-size: 14px;
+}
+
+.card{
+  border: none;
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 20%);
+  margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .navbar-expand-md .navbar-nav .nav-link {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
 }

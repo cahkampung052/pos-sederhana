@@ -2,14 +2,13 @@
 
 namespace App\Helpers;
 
-use App\Models\UserModel;
-
 class ResponseHelper
 {
-    public static function successResponse($response, $data)
+    public static function successResponse($response, $data, $messages = '')
     {
         return $response->setStatusCode(200)->setJSON([
             'status' => true,
+            'messages' => $messages,
             'data' => $data
         ]);
     }
