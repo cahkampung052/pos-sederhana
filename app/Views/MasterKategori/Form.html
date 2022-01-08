@@ -1,0 +1,88 @@
+{% extends "Layout/Admin.html" %} {% block content %}
+<div class="row my-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="pb-2 mb-0 tittle-form">
+                    <i class="{{icon}}"></i> {{tittle}}
+                </h6>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="nama" class="control-label required">Nama Kategori</label>
+                            <input type="text" class="form-control" id="nama"
+                                placeholder="Masukkan Nama Kategori Produk" />
+                            <input type="hidden" class="form-control" id="id" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    <div class="float-right">
+                        <a href="{{baseUrl}}/kategori" class="btn btn-info btn-sm">
+                            <i class="fa fa-arrow-left"></i>
+                            Daftar Kategori
+                        </a>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="save()">
+                            <i class="fa fa-save"></i>
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function save() {
+        const nama = $("#nama").val();
+        const id = $("#id").val();
+
+        $.post('{{baseUrl}}/api/kategori', { nama: nama, id: id }, function (result) {
+            if ($("#id").val() > 0) {
+                Swal.fire(
+                    'Berhasil',
+                    'Kamu telah mengubah kategori ini',
+                    'success'
+                );
+            } else {
+                Swal.fire(
+                    'Berhasil',
+                    'Kamu telah menambah kategori baru',
+                    'success'
+                );
+                $("#nama").val('');
+            }
+        }).fail(function (resp) {
+            Swal.fire(
+                'Ooops Mohon Maaf',
+                resp.responseJSON.error[0],
+                'error'
+            );
+        });
+    }
+
+    function getData(kategoriId) {
+        $.get('{{baseUrl}}/api/kategori/' + kategoriId, function (result) {
+            $("#nama").val(result.data.nama);
+            $("#id").val(result.data.id);
+        }).fail(function (resp) {
+            Swal.fire(
+                'Ooops Mohon Maaf',
+                resp.responseJSON.error[0],
+                'error'
+            );
+        });
+    }
+</script>
+
+{% if online == false %}
+<script>
+    getData('{{kategoriId}}');
+</script>
+{% endif %}
+{% endblock %}
