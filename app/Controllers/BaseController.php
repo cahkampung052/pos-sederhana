@@ -2,12 +2,14 @@
 
 namespace App\Controllers;
 
+use Twig\Environment;
 use CodeIgniter\Controller;
+use Psr\Log\LoggerInterface;
 use CodeIgniter\HTTP\CLIRequest;
+use Twig\Loader\FilesystemLoader;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class BaseController
@@ -38,6 +40,11 @@ class BaseController extends Controller
     protected $helpers = [];
 
     /**
+     * Template engine Twig
+     */
+    protected $twig;
+
+    /**
      * Constructor.
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -48,5 +55,16 @@ class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+        // Konfigurasi twig view
+        $appPaths = new \Config\Paths();
+        $appViewPaths = $appPaths->viewDirectory;
+
+        $loader = new FilesystemLoader($appViewPaths);
+
+        $this->twig = new Environment($loader, [
+            'cache' => false,
+            // 'cache' => WRITEPATH.'/cache/twig',
+        ]);
     }
 }

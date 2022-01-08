@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>POS Mini | Majoo</title>
+	<meta name="description" content="Poin of sales sederhana">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+    <!-- Load Bootstrap CSS & Custom CSS -->
+	<link rel="stylesheet" href="{{baseUrl}}/lib/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="{{baseUrl}}/lib/sweetalert/sweetalert2.min.css" />
+	<link rel="stylesheet" href="{{baseUrl}}/lib/custom.css" />
+</head>
+<body>
+
+      <!-- Load Jquery dan Bootsrap JS -->
+	<script src="{{baseUrl}}/lib/jquery.min.js"></script>
+	<script src="{{baseUrl}}/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="{{baseUrl}}/lib/sweetalert/sweetalert2.min.js"></script>
+	<script>
+		function loginAction() {
+			const email = $("#email").val();
+			const password = $("#password").val();
+
+			$.post('{{baseUrl}}/api/user/login', {email: email, password: password}, function(result){
+				window.location.replace('{{baseUrl}}/home');
+			}).fail(function(resp) {
+				Swal.fire(
+					'Ooops Mohon Maaf',
+					resp.responseJSON.error[0],
+					'error'
+				);
+			});
+		}
+	</script>
+</body>
+</html>
