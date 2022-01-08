@@ -12,8 +12,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="nama" class="control-label required">Nama Kategori</label>
-                            <input type="text" class="form-control" id="nama"
-                                placeholder="Masukkan Nama Kategori Produk" />
+                            <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Kategori" />
                             <input type="hidden" class="form-control" id="id" />
                         </div>
                     </div>
@@ -80,7 +79,7 @@
     }
 </script>
 
-{% if online == false %}
+{% if kategoriId > 0 %}
 <script>
     getData('{{kategoriId}}');
 </script>

@@ -34,15 +34,22 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/home', 'Home::index');
 $routes->get('/login', 'Home::login');
+
 $routes->get('/produk', 'Produk::index');
 $routes->get('/produk/add', 'Produk::add');
 $routes->get('/produk/edit', 'Produk::edit');
-$routes->get('/produk/delete', 'Produk::delete');
+
 $routes->get('/kategori', 'KategoriProduk::index');
 $routes->get('/kategori/add', 'KategoriProduk::add');
 $routes->get('/kategori/edit/(:num)', 'KategoriProduk::edit/$1');
-$routes->get('/kategori/delete', 'KategoriProduk::delete');
 
+$routes->get('/customer', 'Customer::index');
+$routes->get('/customer/add', 'Customer::add');
+$routes->get('/customer/edit/(:num)', 'Customer::edit/$1');
+
+$routes->get('/supplier', 'Supplier::index');
+$routes->get('/supplier/add', 'Supplier::add');
+$routes->get('/supplier/edit/(:num)', 'Supplier::edit/$1');
 /** Web routing */
 
 /** REST API routing */
@@ -57,6 +64,16 @@ $routes->get('/api/produk/get', 'Produk\ProdukApi::get');
 $routes->get('/api/produk/(:num)', 'Produk\ProdukApi::find/$1');
 $routes->post('/api/produk/drop', 'Produk\ProdukApi::drop');
 $routes->post('/api/produk', 'Produk\ProdukApi::save');
+
+$routes->get('/api/customer/get', 'Master\CustomerApi::get');
+$routes->get('/api/customer/(:num)', 'Master\CustomerApi::find/$1');
+$routes->post('/api/customer/drop', 'Master\CustomerApi::drop');
+$routes->post('/api/customer', 'Master\CustomerApi::save');
+
+$routes->get('/api/supplier/get', 'Master\SupplierApi::get');
+$routes->get('/api/supplier/(:num)', 'Master\SupplierApi::find/$1');
+$routes->post('/api/supplier/drop', 'Master\SupplierApi::drop');
+$routes->post('/api/supplier', 'Master\SupplierApi::save');
 
 /*
  * --------------------------------------------------------------------

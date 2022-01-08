@@ -17,11 +17,4 @@ class UserModel extends Model
         'password',
         'roles',
     ];
-
-    protected $validationRules = [
-        'nama' => 'required|alpha_numeric_space|min_length[3]|max_length[50]',
-        'email' => 'required|alpha_numeric_space|min_length[3]|max_length[50]',
-        'password' => 'required',
-        'roles' => 'required'
-    ];
 }

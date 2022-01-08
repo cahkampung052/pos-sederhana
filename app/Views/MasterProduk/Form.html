@@ -20,10 +20,18 @@
                         <div class="form-group col-md-6">
                             <label for="kategori" class="control-label required">Kategori</label>
                             <div class="col-12 pl-0 pr-0">
-                                <select class="form-control kategori-list" id="kategori" name="state">
-                                    <option value="AL">Alabama</option> 
-                                    <option value="WY">Wyoming</option>
-                                </select>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control kategori-list" id="kategori" name="state">
+                                        <option value="AL">Alabama</option> 
+                                        <option value="WY">Wyoming</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="addon-kategori">
+                                            <a href="{{baseUrl}}/kategori/add"><i class="fa fa-plus"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                               
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -168,7 +176,7 @@
         });
     }
 </script>
-{% if online == false %}
+{% if produkId > 0 %}
 <script>
     getData('{{produkId}}');
 </script>
