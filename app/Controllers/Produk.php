@@ -38,7 +38,7 @@ class Produk extends BaseController
             'baseUrl' => base_url(),
             'tittle' => 'Edit Produk',
             'icon' => 'fa fa-edit',
-            'produkId' => $param
+            'produkId' => $param,
         ]);
     }
 }

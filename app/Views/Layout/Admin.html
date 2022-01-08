@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <title>POS Mini | Majoo</title>
     <meta name="description" content="Poin of sales sederhana" />
@@ -8,14 +9,8 @@
     <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
 
     <!-- Load Bootstrap CSS & Custom CSS -->
-    <link
-      rel="stylesheet"
-      href="{{baseUrl}}/lib/bootstrap/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="{{baseUrl}}/lib/sweetalert/sweetalert2.min.css"
-    />
+    <link rel="stylesheet" href="{{baseUrl}}/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{baseUrl}}/lib/sweetalert/sweetalert2.min.css" />
     <link rel="stylesheet" href="{{baseUrl}}/lib/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{{baseUrl}}/lib/offcanvas.css" />
     <link rel="stylesheet" href="{{baseUrl}}/lib/custom.css" />
@@ -25,74 +20,47 @@
     <script src="{{baseUrl}}/lib/popper.min.js"></script>
     <script src="{{baseUrl}}/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="{{baseUrl}}/lib/sweetalert/sweetalert2.min.js"></script>
-  </head>
+</head>
 
-  <body class="bg-light">
+<body class="bg-light">
     <nav class="navbar navbar-expand-md fixed-top">
-      <a class="navbar-brand" href="#">Majoo Panel</a>
-      <button
-        class="navbar-toggler p-0 border-0"
-        type="button"
-        data-toggle="offcanvas"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <div class="container">
+            <a class="navbar-brand" href="#">Majoo Panel</a>
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div
-        class="navbar-collapse offcanvas-collapse"
-        id="navbarsExampleDefault"
-      >
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#"
-              >Dashboard</a
-            >
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="http://example.com"
-              id="dropdown01"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Data Master</a
-            >
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="{{baseUrl}}/produk">Produk</a>
-              <a class="dropdown-item" href="{{baseUrl}}/supplier">Supplier</a>
-              <a class="dropdown-item" href="{{baseUrl}}/customer">Customer</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pengguna</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pembelian</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Penjualan</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <div class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="http://example.com"
-              id="dropdown01"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Settings</a
-            >
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-        </form>
-      </div>
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Master</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="nav-link" href="{{baseUrl}}/user">Pengguna</a>
+                        <a class="dropdown-item" href="{{baseUrl}}/produk">Produk</a>
+                        <a class="dropdown-item" href="{{baseUrl}}/supplier">Supplier</a>
+                        <a class="dropdown-item" href="{{baseUrl}}/customer">Customer</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{baseUrl}}/pembelian">Pembelian</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Penjualan</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Settings</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="{{baseUrl}}/user/profile"><i class="fa fa-user"></i> Ubah Profile</a>
+                        <a class="dropdown-item" href="{{baseUrl}}/user/logout"><i class="fa fa-sign-out"></i> Logout</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
     </nav>
 
     <main role="main" class="container">
@@ -100,17 +68,18 @@
     </main>
 
     <script>
-      $(function () {
-        "use strict";
+        $(function () {
+            "use strict";
 
-        $('[data-toggle="offcanvas"]').on("click", function () {
-          $(".offcanvas-collapse").toggleClass("open");
+            $('[data-toggle="offcanvas"]').on("click", function () {
+                $(".offcanvas-collapse").toggleClass("open");
+            });
         });
-      });
 
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-      })
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
-  </body>
+</body>
+
 </html>

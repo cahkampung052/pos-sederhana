@@ -50,11 +50,19 @@ $routes->get('/customer/edit/(:num)', 'Customer::edit/$1');
 $routes->get('/supplier', 'Supplier::index');
 $routes->get('/supplier/add', 'Supplier::add');
 $routes->get('/supplier/edit/(:num)', 'Supplier::edit/$1');
+
+$routes->get('/pembelian', 'Pembelian::index');
+$routes->get('/pembelian/add', 'Pembelian::add');
+$routes->get('/pembelian/edit/(:num)', 'Pembelian::edit/$1');
+
+$routes->get('/user', 'User::index');
+$routes->get('/user/logout', 'User::logout');
+$routes->get('/user/add', 'User::add');
+$routes->get('/user/profile', 'User::editProfile');
+$routes->get('/user/edit/(:num)', 'User::edit/$1');
 /** Web routing */
 
 /** REST API routing */
-$routes->post('/api/user/login', 'User\UserApi::login');
-
 $routes->get('/api/kategori/get', 'Produk\KategoriApi::get');
 $routes->get('/api/kategori/(:num)', 'Produk\KategoriApi::find/$1');
 $routes->post('/api/kategori/drop', 'Produk\KategoriApi::drop');
@@ -74,6 +82,12 @@ $routes->get('/api/supplier/get', 'Master\SupplierApi::get');
 $routes->get('/api/supplier/(:num)', 'Master\SupplierApi::find/$1');
 $routes->post('/api/supplier/drop', 'Master\SupplierApi::drop');
 $routes->post('/api/supplier', 'Master\SupplierApi::save');
+
+$routes->post('/api/user/login', 'User\UserApi::login');
+$routes->get('/api/user/get', 'User\UserApi::get');
+$routes->get('/api/user/(:num)', 'User\UserApi::find/$1');
+$routes->post('/api/user/drop', 'User\UserApi::drop');
+$routes->post('/api/user', 'User\UserApi::save');
 
 /*
  * --------------------------------------------------------------------

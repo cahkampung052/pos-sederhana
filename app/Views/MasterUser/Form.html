@@ -1,0 +1,121 @@
+{% extends "Layout/Admin.html" %} {% block content %}
+<div class="row my-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="pb-2 mb-0 tittle-form">
+                    <i class="{{icon}}"></i> {{tittle}}
+                </h6>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="nama" class="control-label required">Nama User</label>
+                            <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama user" />
+                            <input type="hidden" class="form-control" id="id" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email" class="control-label required">Email</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-harga-jual">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                </div>
+                                <input type="email" class="form-control" id="email" placeholder="Masukkan Email user" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="password" class="control-label required">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Masukkan Password Baru" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="password" class="control-label required">Konfirmasi Password</label>
+                            <input type="password" class="form-control" id="rePassword" placeholder="Ulangi Password Baru" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    <div class="float-right">
+                        {% if hiddenBackBtn != '1' %}
+                        <a href="{{baseUrl}}/user" class="btn btn-info btn-sm">
+                            <i class="fa fa-arrow-left"></i>
+                            Daftar User
+                        </a>
+                        {% endif %}
+                        <button type="button" class="btn btn-primary btn-sm" onclick="save()">
+                            <i class="fa fa-save"></i>
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function save() {
+        const nama = $("#nama").val();
+        const email = $("#email").val();
+        const password = $("#password").val();
+        const rePassword = $("#rePassword").val();
+        const id = $("#id").val();
+
+        $.post('{{baseUrl}}/api/user', { 
+            nama: nama, 
+            id: id,
+            email: email,
+            password: password ,
+            rePassword: rePassword
+        }, function (result) {
+            Swal.fire(
+                'Berhasil',
+                result.messages,
+                'success'
+            );
+
+            if ($("#id").val() > 0) {
+                $("#password").val('');
+                $("#rePassword").val('');
+            } else {
+                $("#nama").val('');
+                $("#email").val('');
+                $("#password").val('');
+                $("#rePassword").val('');
+            }
+        }).fail(function (resp) {
+            Swal.fire(
+                'Ooops Mohon Maaf',
+                resp.responseJSON.error[0],
+                'error'
+            );
+        });
+    }
+
+    function getData(userId) {
+        $.get('{{baseUrl}}/api/user/' + userId, function (result) {
+            $("#nama").val(result.data.nama);
+            $("#email").val(result.data.email);
+            $("#password").val('');
+            $("#rePassword").val('');
+            $("#id").val(result.data.id);
+        }).fail(function (resp) {
+            Swal.fire(
+                'Ooops Mohon Maaf',
+                resp.responseJSON.error[0],
+                'error'
+            );
+        });
+    }
+</script>
+
+{% if userId > 0 %}
+<script>
+    getData('{{userId}}');
+</script>
+{% endif %}
+{% endblock %}
