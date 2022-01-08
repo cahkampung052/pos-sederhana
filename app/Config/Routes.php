@@ -34,11 +34,29 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/home', 'Home::index');
 $routes->get('/login', 'Home::login');
+$routes->get('/produk', 'Produk::index');
+$routes->get('/produk/add', 'Produk::add');
+$routes->get('/produk/edit', 'Produk::edit');
+$routes->get('/produk/delete', 'Produk::delete');
+$routes->get('/kategori', 'KategoriProduk::index');
+$routes->get('/kategori/add', 'KategoriProduk::add');
+$routes->get('/kategori/edit/(:num)', 'KategoriProduk::edit/$1');
+$routes->get('/kategori/delete', 'KategoriProduk::delete');
 
 /** Web routing */
 
 /** REST API routing */
 $routes->post('/api/user/login', 'User\UserApi::login');
+
+$routes->get('/api/kategori/get', 'Produk\KategoriApi::get');
+$routes->get('/api/kategori/(:num)', 'Produk\KategoriApi::find/$1');
+$routes->post('/api/kategori/drop', 'Produk\KategoriApi::drop');
+$routes->post('/api/kategori', 'Produk\KategoriApi::save');
+
+$routes->get('/api/produk/get', 'Produk\ProdukApi::get');
+$routes->get('/api/produk/(:num)', 'Produk\ProdukApi::find/$1');
+$routes->post('/api/produk/drop', 'Produk\ProdukApi::drop');
+$routes->post('/api/produk', 'Produk\ProdukApi::save');
 
 /*
  * --------------------------------------------------------------------

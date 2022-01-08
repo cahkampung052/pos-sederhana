@@ -1,0 +1,176 @@
+{% extends "Layout/Admin.html" %} {% block content %}
+<div class="my-3 p-3 bg-white rounded box-shadow">
+    <h6 class="border-bottom border-gray pb-2 mb-0 tittle-form">
+        <i class="{{icon}}"></i> {{tittle}}
+    </h6>
+    <div class="container-fluid pl-0 pr-0 mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group img-produk-container col-md-12">
+                            <img src="https://images.tokopedia.net/img/cache/900/VqbcmM/2021/8/27/923568c7-39ef-4768-8b2b-43ea80a11cdd.jpg"
+                                class="img-produk rounded mx-auto d-block">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="nama" class="control-label required">Nama Produk</label>
+                            <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Produk" />
+                            <input type="hidden" class="form-control" id="id" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="kategori" class="control-label required">Kategori</label>
+                            <div class="col-12 pl-0 pr-0">
+                                <select class="form-control kategori-list" id="kategori" name="state">
+                                    <option value="AL">Alabama</option> 
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="kategori" class="control-label required">Harga Beli</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-harga-beli">Rp</span>
+                                </div>
+                                <input type="number" class="form-control" id="harga_beli" placeholder="Harga Beli" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="kategori" class="control-label required">Harga Jual</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-harga-jual">Rp</span>
+                                </div>
+                                <input type="number" class="form-control" id="harga_jual" placeholder="Harga Jual" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="kategori" class="control-label required">Deskripsi</label>
+                            <div>
+                                <div class="editor-container">
+                                    <textarea class="editor" id="deskripsi"></textarea>
+                                    <!-- <div class="editor"></div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="float-right">
+                                <a href="{{baseUrl}}/produk" class="btn btn-info btn-sm">
+                                    <i class="fa fa-arrow-left"></i>
+                                    Daftar Produk
+                                </a>
+                                <button type="button" onclick="save()" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-save"></i>
+                                    Simpan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="{{baseUrl}}/lib/select2/css/select2.min.css" rel="stylesheet" />
+<script src="{{baseUrl}}/lib/ckeditor/ckeditor.js"></script>
+<script src="{{baseUrl}}/lib/select2/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".kategori-list").select2();
+        
+        // Get daftar kategori produk
+        $.get('{{baseUrl}}/api/kategori/get', function (result) {
+            let listKategori = [];
+            result.data.map((value) => {
+                listKategori.push({
+                    id: value.id,
+                    text: value.nama
+                });
+            });
+            $(".kategori-list").html('').select2({data: listKategori});
+        });
+    });
+
+    ClassicEditor.create(document.querySelector(".editor"), {
+        licenseKey: "",
+    }).then((editor) => {
+        window.editor = editor;
+    }).catch((error) => {
+        console.error("Oops, something went wrong!");
+        console.error(
+            "Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:"
+        );
+        console.warn("Build id: 740ousfpc6v5-8ek9xs5l5res");
+        console.error(error);
+    });
+
+    function save() {
+        const nama = $("#nama").val();
+        const id = $("#id").val();
+        const kategori = $("#kategori").val();
+        const harga_beli = $("#harga_beli").val();
+        const harga_jual = $("#harga_jual").val();
+        const deskripsi = window.editor.getData();
+
+        $.post('{{baseUrl}}/api/produk', { 
+            nama: nama, 
+            id: id, 
+            kategori: kategori, 
+            harga_beli: harga_beli, 
+            harga_jual: harga_jual, 
+            deskripsi: deskripsi, 
+        }, function (result) {
+            Swal.fire(
+                'Berhasil',
+                result.messages,
+                'success'
+            );
+            if ($("#id").val() > 0) {
+                // do nothing
+            } else {
+                $("#nama").val('');
+                $("#id").val('');
+                $("#harga_beli").val('');
+                $("#harga_jual").val('');
+                const domEditableElement = document.querySelector( '.ck-editor__editable' );
+                // Get the editor instance from the editable element.
+                const editorInstance = domEditableElement.ckeditorInstance;
+                // Use the editor instance API.
+                editorInstance.setData(result.data.deskripsi);
+            }
+        }).fail(function (resp) {
+            Swal.fire(
+                'Ooops Mohon Maaf',
+                resp.responseJSON.error[0],
+                'error'
+            );
+        });
+    }
+
+    function getData(produkId) {
+        $.get('{{baseUrl}}/api/produk/' + produkId, function (result) {
+            $("#nama").val(result.data.nama);
+            $("#id").val(result.data.id);
+            $("#kategori").val(result.data.m_produk_kategori_id);
+            $("#harga_beli").val(result.data.harga_beli);
+            $("#harga_jual").val(result.data.harga_jual);
+            const domEditableElement = document.querySelector( '.ck-editor__editable' );
+            // Get the editor instance from the editable element.
+            const editorInstance = domEditableElement.ckeditorInstance;
+            // Use the editor instance API.
+            editorInstance.setData(result.data.deskripsi);
+        }).fail(function (resp) {
+            Swal.fire(
+                'Ooops Mohon Maaf',
+                resp.responseJSON.error[0],
+                'error'
+            );
+        });
+    }
+</script>
+{% if online == false %}
+<script>
+    getData('{{produkId}}');
+</script>
+{% endif %}
+{% endblock %}
