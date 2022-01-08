@@ -116,6 +116,26 @@ th {
   padding: 0.25rem 0.75rem;
 }
 
+.nama-produk {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.harga-produk{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.tittle-daftar-produk {
+    color: #1d1d1d;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px !important;
+    margin-top: 15px !important;
+}
+
 /* CUSTOM BOOTSTRAP */
 .control-label {
     color: #263238;

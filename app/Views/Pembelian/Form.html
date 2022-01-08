@@ -1,110 +1,42 @@
 {% extends "Layout/Admin.html" %} {% block content %}
 <div class="row my-3">
     <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h6 class="pb-2 mb-0 tittle-form">
-                    <i class="{{icon}}"></i> {{tittle}}
-                </h6>
-            </div>
-            <div class="card-body">
-                <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="nama" class="control-label required">Nama Supplier</label>
-                            <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Supplier" />
-                            <input type="hidden" class="form-control" id="id" />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="no_telepon" class="control-label required">Nomor Telepon</label>
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-harga-jual">
-                                        <i class="fa fa-phone"></i>
-                                    </span>
-                                </div>
-                                <input type="number" class="form-control" id="no_telepon" placeholder="Nomor Telepon Supplier yang bisa dihubungi" />
-                            </div>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="alamat" class="control-label required">Alamat</label>
-                            <textarea rows="2" class="form-control" id="alamat" placeholder="Masukkan Alamat"></textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="form-group">
-                    <div class="float-right">
-                        <a href="{{baseUrl}}/supplier" class="btn btn-info btn-sm">
-                            <i class="fa fa-arrow-left"></i>
-                            Daftar Supplier
-                        </a>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="save()">
-                            <i class="fa fa-save"></i>
-                            Simpan
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h6 class="mb-0 tittle-daftar-produk lh-100">
+            <i class="fa fa-shopping-cart"></i> Produk
+        </h6>
     </div>
 </div>
-
+<div class="row my-3" id="katalog-produk">
+   
+</div>
 <script>
-    function save() {
-        const nama = $("#nama").val();
-        const no_telepon = $("#no_telepon").val();
-        const alamat = $("#alamat").val();
-        const id = $("#id").val();
-
-        $.post('{{baseUrl}}/api/supplier', { 
-            nama: nama, 
-            id: id,
-            no_telepon: no_telepon,
-            alamat: alamat 
-        }, function (result) {
-            Swal.fire(
-                'Berhasil',
-                result.messages,
-                'success'
-            );
-
-            if ($("#id").val() > 0) {
-                // do nothing
-            } else {
-                $("#nama").val('');
-                $("#no_telepon").val('');
-                $("#alamat").val('');
-            }
-        }).fail(function (resp) {
-            Swal.fire(
-                'Ooops Mohon Maaf',
-                resp.responseJSON.error[0],
-                'error'
-            );
+    $(document).ready(function () {
+        // Get daftar produk
+        $.get('{{baseUrl}}/api/produk/get', function (result) {
+            let listProduk = [];
+            result.data.map((value) => {
+                let contentProduk = '';
+                contentProduk += '<div class="col-md-3">';
+                contentProduk += '<div class="card">';
+                contentProduk += '<img class="card-img-top" src="..." alt="'+value.nama+'">';
+                contentProduk += '<div class="card-body">';
+                contentProduk += '<h5 class="card-title nama-produk">'+value.nama+'</h5>';
+                contentProduk += '<h6 class="card-title harga-produk">Rp '+value.harga_jual+'</h6>';
+                contentProduk += '<div class="card-text">'+value.deskripsi+'</div>';
+                contentProduk += '<div class="text-center mt-4" id="tombol_'+value.id+'">';
+                contentProduk += '<button class="btn btn-sm btn-primary" onclick="add()">';
+                contentProduk += '<i class="fa fa-shopping-cart"></i> Beli</button>';
+                contentProduk += '</div>';
+                contentProduk += '</div>';
+                contentProduk += '</div>';
+                contentProduk += '</div>';
+                $("#katalog-produk").append(contentProduk);
+            });
         });
-    }
+    });
 
-    function getData(supplierId) {
-        $.get('{{baseUrl}}/api/supplier/' + supplierId, function (result) {
-            $("#nama").val(result.data.nama);
-            $("#no_telepon").val(result.data.no_telepon);
-            $("#alamat").val(result.data.alamat);
-            $("#id").val(result.data.id);
-        }).fail(function (resp) {
-            Swal.fire(
-                'Ooops Mohon Maaf',
-                resp.responseJSON.error[0],
-                'error'
-            );
-        });
+    function add() {
+        console.log('asd');
     }
 </script>
-
-{% if supplierId > 0 %}
-<script>
-    getData('{{supplierId}}');
-</script>
-{% endif %}
 {% endblock %}
