@@ -88,7 +88,10 @@
                 },
             },
             "columns": [
-                { "data": "nama" },
+                {
+                    "data": null, "title": "",
+                    "defaultContent": "<center> <img src='' class='thumb-produk' /></center>"
+                },
                 { "data": "nama" },
                 { "data": "kategori" },
                 { "data": "harga_beli" },
@@ -101,6 +104,18 @@
             "columnDefs": [{
                 "defaultContent": "-",
                 "targets": "_all"
+            },{
+                "targets": 0,
+                "data": 'foto',
+                "render": function (data, type, row, meta) {
+                    return '<center><img src="' + data.foto + '" class="thumb-produk"/></center>';
+                }
+            },{
+                "target": 3,
+                "className": "dt-body-right"
+            },{
+                "target": 4,
+                "className": "dt-body-right"
             }]
         });
 

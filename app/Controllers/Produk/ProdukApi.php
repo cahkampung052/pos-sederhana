@@ -33,13 +33,15 @@ class ProdukApi extends ResourceController
     public function save()
     {
         $data = $this->request->getPost();
-
+        $file = $this->request->getFile('fileFoto');
+        
         $params['id'] = $data['id'] ?? '';
         $params['nama'] = $data['nama'] ?? '';
         $params['m_produk_kategori_id'] = $data['kategori'] ?? '';
         $params['deskripsi'] = $data['deskripsi'] ?? '';
         $params['harga_beli'] = $data['harga_beli'] ?? '';
         $params['harga_jual'] = $data['harga_jual'] ?? '';
+        $params['fileFoto'] = $file;
 
         if(isset($params['id']) && $params['id'] > 0){
             $save = ProdukHelper::update($params);

@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Helpers\UserHelper;
 
-class KategoriProduk extends BaseController
+class Pembelian extends BaseController
 {
     public function index()
     {
@@ -12,7 +12,7 @@ class KategoriProduk extends BaseController
             return redirect()->to(base_url('/login'));
         }
 
-        return $this->twig->render('MasterKategori/Index.html', ['baseUrl' => base_url()]);
+        return $this->twig->render('Pembelian/Index.html', ['baseUrl' => base_url()]);
     }
 
     public function add()
@@ -21,9 +21,9 @@ class KategoriProduk extends BaseController
             return redirect()->to(base_url('/login'));
         }
 
-        return $this->twig->render('MasterKategori/Form.html', [
+        return $this->twig->render('Pembelian/Form.html', [
             'baseUrl' => base_url(),
-            'tittle' => 'Tambah Kategori Baru',
+            'tittle' => 'Tambah Pembelian Baru',
             'icon' => 'fa fa-plus'
         ]);
     }
@@ -34,11 +34,11 @@ class KategoriProduk extends BaseController
             return redirect()->to(base_url('/login'));
         }
 
-        return $this->twig->render('MasterKategori/Form.html', [
+        return $this->twig->render('Pembelian/Form.html', [
             'baseUrl' => base_url(),
-            'tittle' => 'Edit Kategori',
+            'tittle' => 'Edit Pembelian',
             'icon' => 'fa fa-edit',
-            'kategoriId' => $param
+            'pembelianId' => $param
         ]);
     }
 }

@@ -6,71 +6,81 @@
     <div class="container-fluid pl-0 pr-0 mt-3">
         <div class="row">
             <div class="col-md-12">
-                <form>
+                <form enctype="multipart/form-data" id="myForm">
                     <div class="form-row">
-                        <div class="form-group img-produk-container col-md-12">
-                            <img src="https://images.tokopedia.net/img/cache/900/VqbcmM/2021/8/27/923568c7-39ef-4768-8b2b-43ea80a11cdd.jpg"
-                                class="img-produk rounded mx-auto d-block">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="nama" class="control-label required">Nama Produk</label>
-                            <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Produk" />
-                            <input type="hidden" class="form-control" id="id" />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="kategori" class="control-label required">Kategori</label>
-                            <div class="col-12 pl-0 pr-0">
-                                <div class="input-group input-group-sm">
-                                    <select class="form-control kategori-list" id="kategori" name="state">
-                                        <option value="AL">Alabama</option> 
-                                        <option value="WY">Wyoming</option>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="addon-kategori">
-                                            <a href="{{baseUrl}}/kategori/add"><i class="fa fa-plus"></i></a>
-                                        </span>
+                        <div class="form-row">
+                            <div class="form-group img-produk-container col-md-12">
+                                <img src="{{baseUrl}}/img/product/default.png"
+                                    class="img-produk rounded mx-auto d-block" id="fotoBaseUrl">
+                                <img class="img-produk rounded mx-auto d-block" id="fotoBase64"/>
+                                <div class="mx-auto" style="max-width: 200px;" id="tombolGanti">
+                                    <input type="file" class="mx-auto ganti-foto" onchange="loadFile(event)" id="fileFoto" name="fileFoto" />
+                                </div>
+                                <div class="progress mx-auto" id="showLoad">
+                                    <div class="progress-bar bg-success" id="proses_upload" role="progressbar" style="width: 25%"
+                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="nama" class="control-label required">Nama Produk</label>
+                                <input type="text" class="form-control" name="nama" id="nama"
+                                    placeholder="Masukkan Nama Produk" />
+                                <input type="hidden" class="form-control" name="id" id="id" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="kategori" class="control-label required">Kategori</label>
+                                <div class="col-12 pl-0 pr-0">
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control kategori-list" name="kategori" id="kategori"
+                                            name="state">
+                                        </select>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="addon-kategori">
+                                                <a href="{{baseUrl}}/kategori/add"><i class="fa fa-plus"></i></a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                               
                             </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="kategori" class="control-label required">Harga Beli</label>
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-harga-beli">Rp</span>
-                                </div>
-                                <input type="number" class="form-control" id="harga_beli" placeholder="Harga Beli" />
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="kategori" class="control-label required">Harga Jual</label>
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-harga-jual">Rp</span>
-                                </div>
-                                <input type="number" class="form-control" id="harga_jual" placeholder="Harga Jual" />
-                            </div>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="kategori" class="control-label required">Deskripsi</label>
-                            <div>
-                                <div class="editor-container">
-                                    <textarea class="editor" id="deskripsi"></textarea>
-                                    <!-- <div class="editor"></div> -->
+                            <div class="form-group col-md-6">
+                                <label for="kategori" class="control-label required">Harga Beli</label>
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-harga-beli">Rp</span>
+                                    </div>
+                                    <input type="number" class="form-control" name="harga_beli" id="harga_beli"
+                                        placeholder="Harga Beli" />
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <div class="float-right">
-                                <a href="{{baseUrl}}/produk" class="btn btn-info btn-sm">
-                                    <i class="fa fa-arrow-left"></i>
-                                    Daftar Produk
-                                </a>
-                                <button type="button" onclick="save()" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-save"></i>
-                                    Simpan
-                                </button>
+                            <div class="form-group col-md-6">
+                                <label for="kategori" class="control-label required">Harga Jual</label>
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-harga-jual">Rp</span>
+                                    </div>
+                                    <input type="number" class="form-control" name="harga_jual" id="harga_jual"
+                                        placeholder="Harga Jual" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="kategori" class="control-label required">Deskripsi</label>
+                                <div>
+                                    <div class="editor-container">
+                                        <textarea class="editor" name="deskripsi" id="deskripsi"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="float-right">
+                                    <a href="{{baseUrl}}/produk" class="btn btn-info btn-sm">
+                                        <i class="fa fa-arrow-left"></i>
+                                        Daftar Produk
+                                    </a>
+                                    <button type="button" onclick="save()" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-save"></i>
+                                        Simpan
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -82,11 +92,27 @@
 <link href="{{baseUrl}}/lib/select2/css/select2.min.css" rel="stylesheet" />
 <script src="{{baseUrl}}/lib/ckeditor/ckeditor.js"></script>
 <script src="{{baseUrl}}/lib/select2/js/select2.min.js"></script>
+<script src="{{baseUrl}}/lib/jquery.form.min.js"></script>
 <script>
+    function loadFile(event) {
+        $('#fotoBaseUrl').removeClass('d-block');
+        $('#fotoBaseUrl').hide();
+        $('#fotoBaseUrl').css({'display' : 'none !important'}); 
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('fotoBase64');
+            output.src = reader.result;
+            $("#fotoBase64").show();
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
     $(document).ready(function () {
         $(".kategori-list").select2();
-        
-        // Get daftar kategori produk
+        $("#showLoad").hide();
+        $("#fotoBase64").hide();
+
+        // Ambil daftar kategori produk
         $.get('{{baseUrl}}/api/kategori/get', function (result) {
             let listKategori = [];
             result.data.map((value) => {
@@ -95,7 +121,7 @@
                     text: value.nama
                 });
             });
-            $(".kategori-list").html('').select2({data: listKategori});
+            $(".kategori-list").html('').select2({ data: listKategori });
         });
     });
 
@@ -112,49 +138,6 @@
         console.error(error);
     });
 
-    function save() {
-        const nama = $("#nama").val();
-        const id = $("#id").val();
-        const kategori = $("#kategori").val();
-        const harga_beli = $("#harga_beli").val();
-        const harga_jual = $("#harga_jual").val();
-        const deskripsi = window.editor.getData();
-
-        $.post('{{baseUrl}}/api/produk', { 
-            nama: nama, 
-            id: id, 
-            kategori: kategori, 
-            harga_beli: harga_beli, 
-            harga_jual: harga_jual, 
-            deskripsi: deskripsi, 
-        }, function (result) {
-            Swal.fire(
-                'Berhasil',
-                result.messages,
-                'success'
-            );
-            if ($("#id").val() > 0) {
-                // do nothing
-            } else {
-                $("#nama").val('');
-                $("#id").val('');
-                $("#harga_beli").val('');
-                $("#harga_jual").val('');
-                const domEditableElement = document.querySelector( '.ck-editor__editable' );
-                // Get the editor instance from the editable element.
-                const editorInstance = domEditableElement.ckeditorInstance;
-                // Use the editor instance API.
-                editorInstance.setData(result.data.deskripsi);
-            }
-        }).fail(function (resp) {
-            Swal.fire(
-                'Ooops Mohon Maaf',
-                resp.responseJSON.error[0],
-                'error'
-            );
-        });
-    }
-
     function getData(produkId) {
         $.get('{{baseUrl}}/api/produk/' + produkId, function (result) {
             $("#nama").val(result.data.nama);
@@ -162,7 +145,10 @@
             $("#kategori").val(result.data.m_produk_kategori_id);
             $("#harga_beli").val(result.data.harga_beli);
             $("#harga_jual").val(result.data.harga_jual);
-            const domEditableElement = document.querySelector( '.ck-editor__editable' );
+            $('#fotoBaseUrl').show();
+            $('#fotoBase64').hide();
+            $('#fotoBaseUrl').attr({'src' : result.data.foto});
+            const domEditableElement = document.querySelector('.ck-editor__editable');
             // Get the editor instance from the editable element.
             const editorInstance = domEditableElement.ckeditorInstance;
             // Use the editor instance API.
@@ -174,6 +160,70 @@
                 'error'
             );
         });
+    }
+
+    function save() {
+        const deskripsi = window.editor.getData();
+        let formData = new FormData($('#myForm')[0]);
+        formData.append("deskripsi", deskripsi);
+        $.ajax({
+            url: "{{baseUrl}}/api/produk",
+            type: 'POST',
+            data: formData,
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        $("#showLoad").show();
+                        $("#tombolGanti").hide();
+                        var percentComplete = evt.loaded / evt.total;
+                        $('#proses_upload').css({'width' : (Math.round(percentComplete * 100)) + '%'}); 
+                        $('#proses_upload').html((Math.round(percentComplete * 100)) + '%'); 
+                    }
+                }, false);
+                return xhr;
+            },
+            success: function (result) {
+                Swal.fire(
+                    'Berhasil',
+                    result.messages,
+                    'success'
+                );
+                if ($("#id").val() > 0) {
+                    // do nothing
+                } else {
+                    $("#nama").val('');
+                    $("#id").val('');
+                    $("#harga_beli").val('');
+                    $("#harga_jual").val('');
+                    const domEditableElement = document.querySelector('.ck-editor__editable');
+                    // Get the editor instance from the editable element.
+                    const editorInstance = domEditableElement.ckeditorInstance;
+                    // Use the editor instance API.
+                    editorInstance.setData('');
+                }
+                $('#fotoBaseUrl').show();
+                $('#fotoBaseUrl').attr({'src' : "{{baseUrl}}/img/product/default.png"});
+                $('#fotoBase64').hide();
+                $("#showLoad").hide();
+                $("#tombolGanti").show();
+                $('#proses_upload').css({'width' : '0%'}); 
+            },
+            error: function (resp) {
+                Swal.fire(
+                    'Ooops Mohon Maaf',
+                    resp.responseJSON.error[0],
+                    'error'
+                );
+                $("#showLoad").hide();
+                $("#tombolGanti").show();
+                $('#proses_upload').css({'width' : '0%'}); 
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+        return false;
     }
 </script>
 {% if produkId > 0 %}
