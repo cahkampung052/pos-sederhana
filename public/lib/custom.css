@@ -194,6 +194,35 @@ table.dataTable{
   max-width: 200px; */
 }
 
+.swal2-container.swal2-center>.swal2-popup{
+  max-width: 320px;
+}
+
+.swal2-title{
+  font-size: 1.475em;
+}
+
+main {
+  min-height: calc(100vh - 101px);
+}
+
+.swal2-html-container{
+  font-size: 1em;
+}
+
+.footer {
+  /* bottom: 0; */
+  height: 45px;
+  background: linear-gradient(to left, #61BFB9, #83CC96);
+  position: absolute;
+  right: 0;
+  color: #ffffff;
+  font-weight: 600;
+  padding-top: 10px;
+  text-align: center;
+  width: 100%;
+}
+
 .ganti-foto {
   max-width: 200px;
   margin-top: 15px;

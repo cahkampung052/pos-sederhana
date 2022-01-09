@@ -23,9 +23,9 @@
 </head>
 
 <body class="bg-light">
-       <!-- Modal -->
-       <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <!-- Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Please Wait</h5>
@@ -88,13 +88,21 @@
         <main role="main" class="container">
             {% block content %}{% endblock %}
         </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">2019 © PT Majoo Indonesia</div>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <script>
 
         async function showLoading() {
-            $('#proses_upload').css({'width' : '25%'}); 
-            $('#proses_upload').html('25%'); 
+            $('#proses_upload').css({ 'width': '25%' });
+            $('#proses_upload').html('25%');
             $('#loadingModal').modal({
                 keyboard: false,
                 backdrop: 'static'

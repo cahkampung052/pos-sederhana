@@ -67,11 +67,13 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
-                                <div class="float-right">
+                                <div class="float-left">
                                     <a href="{{baseUrl}}/produk" class="btn btn-info btn-sm">
                                         <i class="fa fa-arrow-left"></i>
                                         Daftar Produk
                                     </a>
+                                </div>
+                                <div class="float-right">
                                     <button type="button" onclick="save()" class="btn btn-primary btn-sm">
                                         <i class="fa fa-save"></i>
                                         Simpan
@@ -206,7 +208,6 @@
                 }, 3000);
                 
                 if ($("#id").val() > 0) {
-                    $("#tombolGanti").show();
                     // do nothing
                 } else {
                     $("#nama").val('');
@@ -222,6 +223,7 @@
                     showFoto('fotoBaseUrl');
                     hideFoto('fotoBase64');
                 }
+                $("#tombolGanti").show();
             },
             error: function (resp) {
                 hideLoading();
@@ -235,7 +237,7 @@
                 }, 3000);
                
                 $("#tombolGanti").show();
-                $('#proses_upload').css({'width' : '0%'}); 
+                $('#proses_upload').css({'width' : '100%'}); 
             },
             cache: false,
             contentType: false,

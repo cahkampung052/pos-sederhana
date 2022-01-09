@@ -170,7 +170,7 @@ class ProdukHelper
         $builder = $db->table('m_produk');
         $builder->select('m_produk.*, m_produk_kategori.nama as kategori')
                 ->join('m_produk_kategori', 'm_produk_kategori.id = m_produk.m_produk_kategori_id')
-                ->orderBy('m_produk.nama', 'ASC');
+                ->orderBy('m_produk.id', 'DESC');
 
         if(!empty($limit)){
             $builder->limit($limit);
