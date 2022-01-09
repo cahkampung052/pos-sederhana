@@ -6,7 +6,7 @@
         </h6>
     </div>
 </div>
-<div class="row my-3" id="katalog-produk">
+<div class="row row-eq-height my-3" id="katalog-produk">
    
 </div>
 <script>
@@ -16,17 +16,17 @@
             let listProduk = [];
             result.data.map((value) => {
                 let contentProduk = '';
-                contentProduk += '<div class="col-md-3">';
+                contentProduk += '<div class="col-md-3 d-flex align-items-stretch">';
                 contentProduk += '<div class="card">';
-                contentProduk += '<img class="card-img-top" src="..." alt="'+value.nama+'">';
+                contentProduk += '<img class="card-img-top" src="'+ value.foto +'" alt="'+value.nama+'">';
                 contentProduk += '<div class="card-body">';
                 contentProduk += '<h5 class="card-title nama-produk">'+value.nama+'</h5>';
-                contentProduk += '<h6 class="card-title harga-produk">Rp '+value.harga_jual+'</h6>';
+                contentProduk += '<h6 class="card-title harga-produk">'+value.harga_jual+'</h6>';
                 contentProduk += '<div class="card-text">'+value.deskripsi+'</div>';
-                contentProduk += '<div class="text-center mt-4" id="tombol_'+value.id+'">';
-                contentProduk += '<button class="btn btn-sm btn-primary" onclick="add()">';
-                contentProduk += '<i class="fa fa-shopping-cart"></i> Beli</button>';
                 contentProduk += '</div>';
+                contentProduk += '<div class="card-footer footer-katalog text-center mt-4" id="tombol_'+value.id+'">';
+                contentProduk += '<button class="btn btn-sm btn-info btn-block" onclick="add()">';
+                contentProduk += '<i class="fa fa-shopping-cart"></i> Beli</button>';
                 contentProduk += '</div>';
                 contentProduk += '</div>';
                 contentProduk += '</div>';
@@ -36,7 +36,7 @@
     });
 
     function add() {
-        console.log('asd');
+
     }
 </script>
 {% endblock %}

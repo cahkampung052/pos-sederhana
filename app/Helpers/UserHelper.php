@@ -24,7 +24,6 @@ class UserHelper
     }
 
     public static function input($data) {
-
         $validation =  \Config\Services::validation();
         $validation->setRules([
             'nama' => 'required|alpha_numeric_space|min_length[3]|max_length[50]',

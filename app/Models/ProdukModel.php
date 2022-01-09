@@ -16,6 +16,7 @@ class ProdukModel extends Model
         'm_produk_kategori_id', 
         'deskripsi', 
         'harga_beli',
-        'harga_jual'
+        'harga_jual',
+        'foto'
     ];
 }
