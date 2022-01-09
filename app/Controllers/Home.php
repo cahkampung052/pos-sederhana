@@ -12,7 +12,7 @@ class Home extends BaseController
             return redirect()->to(base_url('/login'));
         }
 
-        return $this->twig->render('Penjualan/Kasir.html', ['baseUrl' => base_url()]);
+        return redirect()->to(base_url('/pembelian/add'));
     }
 
     public function login()

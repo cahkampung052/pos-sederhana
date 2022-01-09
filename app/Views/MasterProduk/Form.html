@@ -16,10 +16,6 @@
                                 <div class="mx-auto" style="max-width: 200px;" id="tombolGanti">
                                     <input type="file" class="mx-auto ganti-foto" onchange="loadFile(event)" id="fileFoto" name="fileFoto" />
                                 </div>
-                                <div class="progress mx-auto" id="showLoad">
-                                    <div class="progress-bar bg-success" id="proses_upload" role="progressbar" style="width: 25%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="nama" class="control-label required">Nama Produk</label>
@@ -94,23 +90,32 @@
 <script src="{{baseUrl}}/lib/select2/js/select2.min.js"></script>
 <script src="{{baseUrl}}/lib/jquery.form.min.js"></script>
 <script>
+    function hideFoto(id) {
+        $('#' + id).removeClass('d-block');
+        $('#' + id).hide();
+        $('#' + id).css({'display' : 'none !important'}); 
+    }
+
+    function showFoto(id) {
+        $('#' + id).addClass('d-block');
+        $('#' + id).show();
+        $('#' + id).css({'display' : 'block !important'}); 
+    }
+
     function loadFile(event) {
-        $('#fotoBaseUrl').removeClass('d-block');
-        $('#fotoBaseUrl').hide();
-        $('#fotoBaseUrl').css({'display' : 'none !important'}); 
+        hideFoto('fotoBaseUrl');
         var reader = new FileReader();
         reader.onload = function(){
             var output = document.getElementById('fotoBase64');
             output.src = reader.result;
-            $("#fotoBase64").show();
+            showFoto('fotoBase64');
         };
         reader.readAsDataURL(event.target.files[0]);
     };
 
     $(document).ready(function () {
         $(".kategori-list").select2();
-        $("#showLoad").hide();
-        $("#fotoBase64").hide();
+        hideFoto('fotoBase64');
 
         // Ambil daftar kategori produk
         $.get('{{baseUrl}}/api/kategori/get', function (result) {
@@ -151,9 +156,9 @@
             $("#kategori").val(result.data.m_produk_kategori_id);
             $("#harga_beli").val(result.data.harga_beli);
             $("#harga_jual").val(result.data.harga_jual);
-            $('#fotoBaseUrl').show();
-            $('#fotoBase64').hide();
             $('#fotoBaseUrl').attr({'src' : result.data.foto});
+            showFoto('fotoBaseUrl');
+            hideFoto('fotoBase64');
             const domEditableElement = document.querySelector('.ck-editor__editable');
             // Get the editor instance from the editable element.
             const editorInstance = domEditableElement.ckeditorInstance;
@@ -169,6 +174,7 @@
     }
 
     function save() {
+        showLoading();
         const deskripsi = window.editor.getData();
         let formData = new FormData($('#myForm')[0]);
         formData.append("deskripsi", deskripsi);
@@ -180,7 +186,6 @@
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
-                        $("#showLoad").show();
                         $("#tombolGanti").hide();
                         var percentComplete = evt.loaded / evt.total;
                         $('#proses_upload').css({'width' : (Math.round(percentComplete * 100)) + '%'}); 
@@ -190,12 +195,18 @@
                 return xhr;
             },
             success: function (result) {
-                Swal.fire(
-                    'Berhasil',
-                    result.messages,
-                    'success'
-                );
+                hideLoading()
+
+                setTimeout(() => {
+                    Swal.fire(
+                        'Berhasil',
+                        result.messages,
+                        'success'
+                    );
+                }, 3000);
+                
                 if ($("#id").val() > 0) {
+                    $("#tombolGanti").show();
                     // do nothing
                 } else {
                     $("#nama").val('');
@@ -207,21 +218,22 @@
                     const editorInstance = domEditableElement.ckeditorInstance;
                     // Use the editor instance API.
                     editorInstance.setData('');
+                    $('#fotoBaseUrl').attr({'src' : "{{baseUrl}}/img/product/default.png"});
+                    showFoto('fotoBaseUrl');
+                    hideFoto('fotoBase64');
                 }
-                $('#fotoBaseUrl').show();
-                $('#fotoBaseUrl').attr({'src' : "{{baseUrl}}/img/product/default.png"});
-                $('#fotoBase64').hide();
-                $("#showLoad").hide();
-                $("#tombolGanti").show();
-                $('#proses_upload').css({'width' : '0%'}); 
             },
             error: function (resp) {
-                Swal.fire(
-                    'Ooops Mohon Maaf',
-                    resp.responseJSON.error[0],
-                    'error'
-                );
-                $("#showLoad").hide();
+                hideLoading();
+
+                setTimeout(() => {
+                    Swal.fire(
+                        'Ooops Mohon Maaf',
+                        resp.responseJSON.error[0],
+                        'error'
+                    );
+                }, 3000);
+               
                 $("#tombolGanti").show();
                 $('#proses_upload').css({'width' : '0%'}); 
             },

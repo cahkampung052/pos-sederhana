@@ -68,6 +68,10 @@ th {
   background: #fff;
 }
 
+table.dataTable{
+  width: 100% !important;
+}
+
 .loader-konten {
   left: 50%;
   margin-left: -4em;
@@ -186,8 +190,8 @@ th {
 }
 
 #showLoad{
-  margin-top: 15px;
-  max-width: 200px;
+  /* margin-top: 15px;
+  max-width: 200px; */
 }
 
 .ganti-foto {
